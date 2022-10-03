@@ -37,7 +37,6 @@
 }
 
 .menuItem {
-    composes: pl-4 pr-4 pt-5 pb-5 from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css";
     height: var(--header-content-height);
     gap: calc(var(--offset-base-size)  * 2);
     display: flex;
