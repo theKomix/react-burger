@@ -28,7 +28,7 @@ export const BurgerConstructor: React.FC<{
                 </div>
                 <div className={`${styles.customContent} mt-4 mb-4`}>
                     {list.map(item =>
-                        <div className={styles.element}>
+                        <div key={item._id} className={styles.element}>
                             <DragIcon type="primary" />
                             <ConstructorElement
                                 key={item._id}

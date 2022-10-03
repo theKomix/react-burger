@@ -4,7 +4,7 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {BurgerIngredientBlock} from "./burger-ingredient-block";
 import styles from "./burger-ingredient-list.module.css";
 
-export const BurgerIngredientList: React.FC<{list: Ingredient[];}> = ({ list }) => {
+export const BurgerIngredientList: React.FC<{list: Ingredient[];selected: (Ingredient|null)[];}> = ({ list, selected }) => {
     const [current, setCurrent] = React.useState('ban')
     return (
         <div className={styles.content}>
@@ -24,9 +24,9 @@ export const BurgerIngredientList: React.FC<{list: Ingredient[];}> = ({ list }) 
             </div>
 
             <div className={`${styles.blocks} mt-10`}>
-                <BurgerIngredientBlock list={list} title="Булки" type="bun"/>
-                <BurgerIngredientBlock list={list} title="Соусы" type="sauce"/>
-                <BurgerIngredientBlock list={list} title="Начинки" type="main"/>
+                <BurgerIngredientBlock list={list} selected={selected} title="Булки" type="bun"/>
+                <BurgerIngredientBlock list={list} selected={selected} title="Соусы" type="sauce"/>
+                <BurgerIngredientBlock list={list} selected={selected} title="Начинки" type="main"/>
             </div>
         </div>
     );

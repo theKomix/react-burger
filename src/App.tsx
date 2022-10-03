@@ -41,7 +41,7 @@ function App() {
     return (
         <div className="App">
             <Header/>
-            <BurgerIngredientList list={listIngredients}/>
+            <BurgerIngredientList list={listIngredients} selected={[topBun, bottomBun, ...selectedIngredients]}/>
             <BurgerConstructor topBun={topBun} bottomBun={bottomBun} list={selectedIngredients}/>
         </div>
     );
