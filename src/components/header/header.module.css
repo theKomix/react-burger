@@ -1,0 +1,57 @@
+.header {
+    position: absolute;
+    height: calc(var(--offset-base-size) * 22);
+    left: 0;
+    right: 0;
+    top: 0;
+    background: #1C1C21;
+    box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.content {
+    position: absolute;
+    width: 1280px;
+    --header-content-height: calc(var(--offset-base-size) * 14);;
+    height: var(--header-content-height);
+    left: calc(50% - 1280px/2);
+    top: calc(50% - var(--header-content-height)/2);
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    gap: calc(var(--offset-base-size)  * 2);
+
+    position: absolute;
+    height: var(--header-content-height);
+    left: 0;
+    top: calc(50% - var(--header-content-height)/2);
+}
+
+.logo{
+    position: absolute;
+    height: 50px;
+    left: 495px;
+    top: calc(50% - 50px/2);
+}
+
+.menuItem {
+    height: var(--header-content-height);
+    gap: calc(var(--offset-base-size)  * 2);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #8585AD !important;
+}
+
+.menuItemActive {
+    color: #F2F2F3 !important;
+}
+
+.menuProfile {
+    composes: menuItem;
+    position: absolute;
+    right: 0;
+}

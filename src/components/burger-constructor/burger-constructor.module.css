@@ -1,0 +1,47 @@
+.content {
+    width: 600px;
+    position: absolute;
+    height: 912px;
+    left: calc(50% + 20px);
+    top: calc(var(--offset-base-size) * 22);
+    text-align: right;
+}
+
+.ingredients {
+    text-align: left;
+}
+
+.item {
+    width: 536px;
+    /*height: 80px;*/
+}
+
+.customContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 464px;
+    overflow-y: auto;
+}
+
+.element {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.orderPrice {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: right;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+}
+
+.orderPrice svg {
+    width: 33px;
+    height: 33px;
+}
