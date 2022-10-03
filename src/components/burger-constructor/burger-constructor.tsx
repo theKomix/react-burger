@@ -31,7 +31,6 @@ export const BurgerConstructor: React.FC<{
                         <div key={item._id} className={styles.element}>
                             <DragIcon type="primary" />
                             <ConstructorElement
-                                key={item._id}
                                 text={item.name}
                                 price={item.price}
                                 thumbnail={item.image}
