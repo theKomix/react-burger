@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/header/header";
-import {BurgerIngredientList} from "./components/burger-ingredients/burger-ingredient-list";
-import {BurgerConstructor} from "./components/burger-constructor/burger-constructor";
-import {Ingredient} from "./models/ingredient";
-import {GetIngredients} from "./services/get-ingredients";
+import {Header} from "../header/header";
+import {BurgerIngredientList} from "../burger-ingredients/burger-ingredient-list/burger-ingredient-list";
+import {BurgerConstructor} from "../burger-constructor/burger-constructor";
+import {Ingredient} from "../../models/ingredient";
+import {GetIngredients} from "../../services/get-ingredients";
 
 function App() {
     const [listIngredients, setListIngredients] = React.useState<Ingredient[]>([]);

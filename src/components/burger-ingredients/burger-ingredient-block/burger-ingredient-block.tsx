@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Ingredient} from "../../models/ingredient";
-import {BurgerIngredient} from "./burger-ingredient";
+import {Ingredient} from "../../../models/ingredient";
+import {BurgerIngredient} from "../burger-ingredient/burger-ingredient";
 import styles from './burger-ingredient-block.module.css';
 
 export const BurgerIngredientBlock: React.FC<{

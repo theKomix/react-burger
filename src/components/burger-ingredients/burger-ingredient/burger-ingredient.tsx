@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Ingredient} from "../../models/ingredient";
+import {Ingredient} from "../../../models/ingredient";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient.module.css";
 

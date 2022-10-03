@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {Ingredient} from "../../models/ingredient";
+import {Ingredient} from "../../../models/ingredient";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import {BurgerIngredientBlock} from "./burger-ingredient-block";
+import {BurgerIngredientBlock} from "../burger-ingredient-block/burger-ingredient-block";
 import styles from "./burger-ingredient-list.module.css";
 
 export const BurgerIngredientList: React.FC<{list: Ingredient[];selected: (Ingredient|null)[];}> = ({ list, selected }) => {
