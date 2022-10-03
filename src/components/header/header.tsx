@@ -1,6 +1,6 @@
 import * as React from 'react';
 import headerStyles from './header.module.css';
-import {BurgerIcon, Button, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 export interface HeaderProps {
     className?: string
@@ -12,22 +12,24 @@ export function Header() {
         <div className={headerStyles.header}>
             <div className={headerStyles.content}>
                 <div className={headerStyles.navigation}>
-                    <Button htmlType="button" type="secondary" extraClass={`${headerStyles.menuItem} ${headerStyles.menuItemActive} pl-4 pr-4 pt-5 pb-5`}>
+                    <a className={`${headerStyles.menuItem} ${headerStyles.menuItemActive} text text_type_main-default`} href="#">
                         <BurgerIcon type="primary"/>
                         Конструктор
-                    </Button>
-                    <Button htmlType="button" type="secondary" extraClass={`${headerStyles.menuItem} pl-4 pr-4 pt-5 pb-5`}>
+                    </a>
+                    <a className={`${headerStyles.menuItem} text text_type_main-default`} href="#">
                         <ListIcon type="secondary"/>
                         Лента заказов
-                    </Button>
+                    </a>
                 </div>
                 <div className={headerStyles.logo}>
                     <Logo/>
                 </div>
-                <Button htmlType="button" type="secondary" extraClass={`${headerStyles.menuProfile} pl-4 pr-4 pt-5 pb-5`}>
-                    <ProfileIcon type="secondary"/>
-                    Личный кабинет
-                </Button>
+                <div className={headerStyles.menuProfile}>
+                    <a className={`${headerStyles.menuItem} text text_type_main-default`} href="#">
+                        <ProfileIcon type="secondary"/>
+                        Личный кабинет
+                    </a>
+                </div>
             </div>
         </div>
     )
