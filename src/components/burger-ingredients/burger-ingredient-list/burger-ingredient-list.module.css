@@ -1,0 +1,20 @@
+.content {
+    width: 600px;
+    position: absolute;
+    height: 912px;
+    left: calc(50% - 620px);
+    top: calc(var(--offset-base-size) * 22);
+}
+
+.tabs {
+    display: flex;
+}
+
+.blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 756px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
