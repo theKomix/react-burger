@@ -2,10 +2,26 @@ import * as React from 'react';
 import {Ingredient} from "../../../models/ingredient";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {BurgerIngredientBlock} from "../burger-ingredient-block/burger-ingredient-block";
+import {BurgerIngredientDetails} from "../burger-ingredient-details/burger-ingredient-details";
+
 import styles from "./burger-ingredient-list.module.css";
 
 export const BurgerIngredientList: React.FC<{list: Ingredient[];selected: (Ingredient|null)[];}> = ({ list, selected }) => {
-    const [current, setCurrent] = React.useState('ban')
+    const [current, setCurrent] = React.useState('ban');
+    const [detailsIngredient, setDetailsIngredient] = React.useState<Ingredient | null>(null);
+
+    const getSelectedCount = (item: Ingredient) => {
+        return selected.filter(ing => ing?._id === item._id).length;
+    };
+
+    const onIngredientClick = (item: Ingredient) => {
+        setDetailsIngredient(item);
+    };
+
+    const onDetailsClose = () => {
+        setDetailsIngredient(null);
+    };
+
     return (
         <div className={styles.content}>
             <p className="text text_type_main-large mt-10 mb-5" style={{textAlign: "left"}}>
@@ -24,10 +40,11 @@ export const BurgerIngredientList: React.FC<{list: Ingredient[];selected: (Ingre
             </div>
 
             <div className={`${styles.blocks} mt-10`}>
-                <BurgerIngredientBlock list={list} selected={selected} title="Булки" type="bun"/>
-                <BurgerIngredientBlock list={list} selected={selected} title="Соусы" type="sauce"/>
-                <BurgerIngredientBlock list={list} selected={selected} title="Начинки" type="main"/>
+                <BurgerIngredientBlock list={list} getCount={getSelectedCount} onIngredientClick={onIngredientClick} title="Булки" type="bun"/>
+                <BurgerIngredientBlock list={list} getCount={getSelectedCount} onIngredientClick={onIngredientClick} title="Соусы" type="sauce"/>
+                <BurgerIngredientBlock list={list} getCount={getSelectedCount} onIngredientClick={onIngredientClick} title="Начинки" type="main"/>
             </div>
+           <BurgerIngredientDetails onClose={onDetailsClose} item={detailsIngredient!} />
         </div>
     );
 };

@@ -1,17 +1,29 @@
 import * as React from 'react';
-import styles from './burger-constructor.module.css';
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Ingredient} from "../../models/ingredient";
+import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {OrderDetails} from "./order-details/order-details";
+import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor: React.FC<{
     topBun: Ingredient | null;
     bottomBun: Ingredient | null;
     list: Ingredient[];}> = ({ topBun= null, bottomBun= null, list }) => {
+    const [orderNumber, setOrderNumber] = React.useState<string>("");
+    const [orderDetailsShow, setOrderDetailsShow] = React.useState<boolean>(false);
 
     const getOrderSum = () => {
         return [topBun, bottomBun, ...list].map(item => item?.price ?? 0)
             .reduce((partialSum, a) => partialSum + a, 0);
     }
+
+    const makeOrder = () => {
+        setOrderNumber("034536");
+        setOrderDetailsShow(true);
+    };
+
+    const onDetailsClose = () => {
+        setOrderDetailsShow(false);
+    };
 
     return (
         <div className={`${styles.content} pt-25`}>
@@ -50,8 +62,9 @@ export const BurgerConstructor: React.FC<{
             <div className={`${styles.orderPrice} mt-10`}>
                 <span className="text text_type_digits-medium pr-2">{getOrderSum()}</span>
                 <CurrencyIcon type="primary"/>
-                <Button htmlType="button" extraClass="ml-10 mr-8">Оформить заказ</Button>
+                <Button htmlType="button" extraClass="ml-10 mr-8" onClick={makeOrder}>Оформить заказ</Button>
             </div>
+            <OrderDetails onClose={onDetailsClose} orderNumber={orderNumber!} show={orderDetailsShow}/>
         </div>
     )
 }
