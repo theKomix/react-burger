@@ -5,13 +5,15 @@ import {BurgerIngredientBlock} from "../burger-ingredient-block/burger-ingredien
 import {BurgerIngredientDetails} from "../burger-ingredient-details/burger-ingredient-details";
 
 import styles from "./burger-ingredient-list.module.css";
+import {OrderContext} from "../../../context/order-context";
 
-export const BurgerIngredientList: React.FC<{list: Ingredient[];selected: (Ingredient|null)[];}> = ({ list, selected }) => {
-    const [current, setCurrent] = React.useState('ban');
+export const BurgerIngredientList: React.FC<{list: Ingredient[]}> = ({ list }) => {
+    const [current, setCurrent] = React.useState('bun');
     const [detailsIngredient, setDetailsIngredient] = React.useState<Ingredient | null>(null);
+    const {state} = React.useContext(OrderContext);
 
     const getSelectedCount = (item: Ingredient) => {
-        return selected.filter(ing => ing?._id === item._id).length;
+        return state?.ingredients.filter(ing => ing?._id === item._id).length ?? 0;
     };
 
     const onIngredientClick = (item: Ingredient) => {
@@ -28,7 +30,7 @@ export const BurgerIngredientList: React.FC<{list: Ingredient[];selected: (Ingre
                 Соберите бургер
             </p>
             <div className={styles.tabs}>
-                <Tab value="ban" active={current === 'ban'} onClick={setCurrent}>
+                <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
                     Булки
                 </Tab>
                 <Tab value="main" active={current === 'main'} onClick={setCurrent}>
