@@ -1,6 +1,7 @@
 import * as React from "react";
-import {Ingredient} from "../../../models/ingredient";
 import {Modal} from "../../modal/modal";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {selectIngredientDetails, setDetails} from "../../../services/app/app-slice";
 import styles from "./burger-ingredient-details.module.css";
 
 const BurgerIngredientCharacter: React.FC<{
@@ -15,25 +16,27 @@ const BurgerIngredientCharacter: React.FC<{
     )
 }
 
-export const BurgerIngredientDetails: React.FC<{
-    item: Ingredient | null,
-    onClose: () => void
-}> = ( {item, onClose} ) => {
+export const BurgerIngredientDetails: React.FC = ( ) => {
+    const ingredientDetails = useAppSelector(selectIngredientDetails);
+    const dispatch = useAppDispatch();
+    const onClose = () => {
+        dispatch(setDetails(null));
+    };
 
     return (
         <div style={{overflow: 'hidden'}}>
-            {item &&
+            {ingredientDetails &&
                 <Modal header="Детали ингридиента" onClose={onClose}>
                     <div className={styles.content}>
-                        <img className={styles.image} src={item!.image_large} alt={item!.name}/>
+                        <img className={styles.image} src={ingredientDetails!.image_large} alt={ingredientDetails!.name}/>
                         <div className={styles.name}>
-                            <span className="text text_type_main-medium">{item!.name}</span>
+                            <span className="text text_type_main-medium">{ingredientDetails!.name}</span>
                         </div>
                         <div className={`${styles.characters} pt-4`}>
-                            <BurgerIngredientCharacter caption="Калории, ккал" value={item.calories} />
-                            <BurgerIngredientCharacter caption="Белки, г" value={item.proteins} />
-                            <BurgerIngredientCharacter caption="Жиры, г" value={item.fat} />
-                            <BurgerIngredientCharacter caption="Углеводы, г" value={item.carbohydrates} />
+                            <BurgerIngredientCharacter caption="Калории, ккал" value={ingredientDetails!.calories} />
+                            <BurgerIngredientCharacter caption="Белки, г" value={ingredientDetails!.proteins} />
+                            <BurgerIngredientCharacter caption="Жиры, г" value={ingredientDetails!.fat} />
+                            <BurgerIngredientCharacter caption="Углеводы, г" value={ingredientDetails!.carbohydrates} />
                         </div>
                     </div>
                 </Modal>
