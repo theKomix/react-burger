@@ -45,3 +45,18 @@
     width: 33px;
     height: 33px;
 }
+
+.dropContent {
+    text-align: center;
+    border: dashed 1px #8585AD;
+    height: 80px;
+    padding-top: 42px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.hover {
+    border: solid 4px #5959ac;
+    opacity: 0.5;
+}
+

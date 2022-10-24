@@ -1,5 +1,5 @@
-import {Ingredient} from "../models/ingredient";
-import {GetIngredientsUrl} from "./api-urls";
+import {Ingredient} from "../../models/ingredient";
+import {GetIngredientsUrl} from "../api-urls";
 
 export async function GetIngredients(): Promise<Ingredient[]> {
     return fetch(GetIngredientsUrl).then(response => {
