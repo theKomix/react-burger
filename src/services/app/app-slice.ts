@@ -23,9 +23,6 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setDetails: (state, action: PayloadAction<Ingredient | null>) => {
-      state.ingredientDetails = action.payload;
-    },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
@@ -49,9 +46,8 @@ export const appSlice = createSlice({
 });
 
 export const selectIngredients = (state: RootState) => state.app.ingredients;
-export const selectIngredientDetails = (state: RootState) => state.app.ingredientDetails;
 export const selectError = (state: RootState) => state.app.error;
 export const selectStatus = (state: RootState) => state.app.status;
 
-export const { setError, setDetails } = appSlice.actions;
+export const { setError } = appSlice.actions;
 export default appSlice.reducer;
