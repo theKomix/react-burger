@@ -1,10 +1,6 @@
 import * as React from 'react';
-import {Ingredient} from "../../../models/ingredient";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {BurgerIngredientBlock} from "../burger-ingredient-block/burger-ingredient-block";
-import {BurgerIngredientDetails} from "../burger-ingredient-details/burger-ingredient-details";
-import {useAppDispatch} from "../../app/hooks";
-import {setDetails} from "../../../services/app/app-slice";
 import styles from "./burger-ingredient-list.module.css";
 
 export const BurgerIngredientList: React.FC = () => {
@@ -12,11 +8,6 @@ export const BurgerIngredientList: React.FC = () => {
     const bunRef = React.createRef<HTMLDivElement>();
     const sauceRef = React.createRef<HTMLDivElement>();
     const mainRef = React.createRef<HTMLDivElement>();
-    const dispatch = useAppDispatch();
-
-    const onIngredientClick = (item: Ingredient) => {
-        dispatch(setDetails(item));
-    };
 
     const tabOnClick = (value: string) => {
         setCurrent(value);
@@ -59,20 +50,19 @@ export const BurgerIngredientList: React.FC = () => {
                 <Tab value="bun" active={current === 'bun'} onClick={tabOnClick}>
                     Булки
                 </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={tabOnClick}>
-                    Соусы
-                </Tab>
                 <Tab value="main" active={current === 'main'} onClick={tabOnClick}>
                     Начинки
+                </Tab>
+                <Tab value="sauce" active={current === 'sauce'} onClick={tabOnClick}>
+                    Соусы
                 </Tab>
             </div>
 
             <div className={`${styles.blocks} mt-10`} onScroll={scrollHandler}>
-                <BurgerIngredientBlock onIngredientClick={onIngredientClick} title="Булки" type="bun" ref={bunRef}/>
-                <BurgerIngredientBlock onIngredientClick={onIngredientClick} title="Соусы" type="sauce" ref={sauceRef} />
-                <BurgerIngredientBlock onIngredientClick={onIngredientClick} title="Начинки" type="main" ref={mainRef}/>
+                <BurgerIngredientBlock title="Булки" type="bun" ref={bunRef}/>
+                <BurgerIngredientBlock title="Начинки" type="main" ref={mainRef}/>
+                <BurgerIngredientBlock title="Соусы" type="sauce" ref={sauceRef} />
             </div>
-           <BurgerIngredientDetails />
         </div>
     );
 };

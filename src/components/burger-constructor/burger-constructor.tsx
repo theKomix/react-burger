@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderDetails } from "./order-details/order-details";
-import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import {
     addIngredient,
     selectCart

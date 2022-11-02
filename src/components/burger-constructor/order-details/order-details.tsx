@@ -3,7 +3,7 @@ import {Modal} from "../../modal/modal";import styles from "./order-details.modu
 import done from '../../../images/done.png';
 import loading from '../../../images/loading.gif';
 import error from '../../../images/error.png';
-import {useAppSelector} from "../../app/hooks";
+import {useAppSelector} from "../../../hooks";
 import {selectOrder} from "../../../services/order/order-slice";
 
 export const OrderDetails: React.FC<{

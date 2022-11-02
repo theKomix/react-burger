@@ -1,8 +1,6 @@
 import * as React from "react";
-import {Modal} from "../../modal/modal";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {selectIngredientDetails, setDetails} from "../../../services/app/app-slice";
 import styles from "./burger-ingredient-details.module.css";
+import {Ingredient} from "../../../models/ingredient";
 
 const BurgerIngredientCharacter: React.FC<{
     caption: string;
@@ -16,31 +14,22 @@ const BurgerIngredientCharacter: React.FC<{
     )
 }
 
-export const BurgerIngredientDetails: React.FC = ( ) => {
-    const ingredientDetails = useAppSelector(selectIngredientDetails);
-    const dispatch = useAppDispatch();
-    const onClose = () => {
-        dispatch(setDetails(null));
-    };
+export const BurgerIngredientDetails: React.FC<{
+    item: Ingredient
+}> = ( {item} ) => {
 
     return (
-        <div style={{overflow: 'hidden'}}>
-            {ingredientDetails &&
-                <Modal header="Детали ингридиента" onClose={onClose}>
-                    <div className={styles.content}>
-                        <img className={styles.image} src={ingredientDetails!.image_large} alt={ingredientDetails!.name}/>
-                        <div className={styles.name}>
-                            <span className="text text_type_main-medium">{ingredientDetails!.name}</span>
-                        </div>
-                        <div className={`${styles.characters} pt-4`}>
-                            <BurgerIngredientCharacter caption="Калории, ккал" value={ingredientDetails!.calories} />
-                            <BurgerIngredientCharacter caption="Белки, г" value={ingredientDetails!.proteins} />
-                            <BurgerIngredientCharacter caption="Жиры, г" value={ingredientDetails!.fat} />
-                            <BurgerIngredientCharacter caption="Углеводы, г" value={ingredientDetails!.carbohydrates} />
-                        </div>
-                    </div>
-                </Modal>
-            }
+        <div className={styles.content}>
+            <img className={styles.image} src={item!.image_large} alt={item!.name}/>
+            <div className={styles.name}>
+                <span className="text text_type_main-medium">{item!.name}</span>
+            </div>
+            <div className={`${styles.characters} pt-4`}>
+                <BurgerIngredientCharacter caption="Калории, ккал" value={item!.calories}/>
+                <BurgerIngredientCharacter caption="Белки, г" value={item!.proteins}/>
+                <BurgerIngredientCharacter caption="Жиры, г" value={item!.fat}/>
+                <BurgerIngredientCharacter caption="Углеводы, г" value={item!.carbohydrates}/>
+            </div>
         </div>
     );
 };
