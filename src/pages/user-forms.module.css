@@ -9,3 +9,10 @@
     color: #4C4CFF;
     text-decoration: none;
 }
+
+.error {
+    color: var(--colors-interface-error);
+    margin-left: 24px;
+    margin-top: 2px;
+    font-size: 16px;
+}
