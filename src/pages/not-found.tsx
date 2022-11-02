@@ -9,11 +9,10 @@ export function NotFound404() {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <h1>Oops! 404 Error</h1>
-          <p>The page you requested does not exist</p>
-          <br />
-          <br />
-          <p>check the address or try <Link to='/' className={styles.link}>homepage</Link></p>
+          <h1 className="text text_type_main-large">Страница потерялась...</h1>
+          <p className="text text_type_main-default pt-15">Запрашиваемая Вами страница, скорее всего, когда-то была здесь,</p>
+          <p className="text text_type_main-default pt-2">но, к сожалению, сейчас её здесь нет</p>
+          <p className="text text_type_main-default pt-15">проверьте адрес или вернитесь <Link to='/' className={styles.link}>домой</Link></p>
         </div>
       </div>
     </div>

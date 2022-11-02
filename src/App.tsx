@@ -35,29 +35,31 @@ function App() {
         return (
             <div className="App">
                 <Header/>
-                <Routes location={background || location}>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/login" element={<LoginPage/>}/>
-                    <Route path="/register" element={<RegisterPage/>}/>
-                    <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
-                    <Route path="/reset-password" element={<ResetPasswordPage/>}/>
-                    <Route path="/profile" element={<ProfilePage/>}/>
-                    <Route path='/ingredients/:ingredientId' element={<IngredientDetailsPage/>}/>
-                    <Route path="*" element={<NotFound404/>}/>
-                </Routes>
-
-                {background && (
-                    <Routes>
-                        <Route
-                            path='/ingredients/:ingredientId'
-                            element={
-                                <Modal header="Детали ингридиента" onClose={handleModalClose}>
-                                    <IngredientDetailsPage />
-                                </Modal>
-                            }
-                        />
+                <div className="content">
+                    <Routes location={background || location}>
+                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
+                        <Route path="/register" element={<RegisterPage/>}/>
+                        <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
+                        <Route path="/reset-password" element={<ResetPasswordPage/>}/>
+                        <Route path="/profile" element={<ProfilePage/>}/>
+                        <Route path='/ingredients/:ingredientId' element={<IngredientDetailsPage/>}/>
+                        <Route path="*" element={<NotFound404/>}/>
                     </Routes>
-                )}
+
+                    {background && (
+                        <Routes>
+                            <Route
+                                path='/ingredients/:ingredientId'
+                                element={
+                                    <Modal header="Детали ингридиента" onClose={handleModalClose}>
+                                        <IngredientDetailsPage />
+                                    </Modal>
+                                }
+                            />
+                        </Routes>
+                    )}
+                </div>
             </div>
         );
     }

@@ -37,13 +37,16 @@
 }
 
 .menuItem {
+    text-decoration: none;
+    color: #8585AD;
+}
+
+.menuItem span {
     height: var(--header-content-height);
     gap: calc(var(--offset-base-size)  * 2);
     display: flex;
     flex-direction: row;
     align-items: center;
-    text-decoration: none;
-    color: #8585AD;
 }
 
 .menuItemActive {
