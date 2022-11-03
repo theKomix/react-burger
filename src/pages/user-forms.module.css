@@ -37,3 +37,7 @@
 .sidebarItemActive {
     color: #F2F2F3 !important;
 }
+
+.inputContainer {
+    text-align: left;
+}

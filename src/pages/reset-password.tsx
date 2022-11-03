@@ -51,7 +51,7 @@ export function ResetPasswordPage() {
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
             <h1 className="text text_type_main-medium">Восстановление пароля</h1>
-            <div style={{textAlign: "left"}}>
+            <div className={styles.inputContainer}>
                 <PasswordInput
                     placeholder="Введите новый пароль"
                     onChange={(e) => { setPassword(e.target.value); clearErrors()}}

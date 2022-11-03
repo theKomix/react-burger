@@ -70,7 +70,7 @@ export function RegisterPage() {
                            name="name"
                            error={!!nameError}
                            errorText={nameError}/>
-                    <div style={{textAlign: "left"}}>
+                    <div className={styles.inputContainer}>
                         <EmailInput
                             placeholder="E-mail"
                             onChange={(e) => {
@@ -82,7 +82,7 @@ export function RegisterPage() {
                         {!!emailError &&
                             <span className={`${styles.error} text text_type_main-small`}>{emailError}</span>}
                     </div>
-                    <div style={{textAlign: "left"}}>
+                    <div className={styles.inputContainer}>
                         <PasswordInput
                             placeholder="Пароль"
                             onChange={(e) => {

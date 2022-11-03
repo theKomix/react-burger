@@ -31,7 +31,7 @@ export function ForgotPasswordPage() {
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
             <h1 className="text text_type_main-medium">Восстановление пароля</h1>
-            <div style={{textAlign: "left"}}>
+            <div className={styles.inputContainer}>
                 <EmailInput
                     placeholder="E-mail"
                     onChange={(e) => { setEmail(e.target.value); setError("")}}

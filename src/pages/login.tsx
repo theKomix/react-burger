@@ -33,6 +33,9 @@ export function LoginPage() {
     useEffect(() => {
         if (submitted && loginStatus === "idle") {
             if (state && state.from) {
+                //
+                // реализация redirect на ту страницу, с которой пришел логин
+                //
                 navigate(state.from);
             } else {
                 navigate("/");
@@ -54,7 +57,7 @@ export function LoginPage() {
                         value={email}
                         name={'email'}
                         size={'default'}/>
-                    <div style={{textAlign: "left"}}>
+                    <div className={styles.textLeft}>
                         <PasswordInput
                             placeholder={'Пароль'}
                             onChange={(e) => {

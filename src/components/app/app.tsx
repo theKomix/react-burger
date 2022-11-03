@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
-import {Header} from "./components/header/header";
-import { getIngredientsAsync } from "./services/app/app-slice";
-import { useAppDispatch } from './hooks';
-import { Modal } from './components/modal/modal';
+import {Header} from "../header/header";
+import { getIngredientsAsync } from "../../services/app/app-slice";
+import { useAppDispatch } from '../../hooks';
+import { Modal } from '../modal/modal';
 import {
     ForgotPasswordPage,
     HomePage, IngredientDetailsPage,
@@ -12,13 +12,12 @@ import {
     ProfilePage,
     RegisterPage,
     ResetPasswordPage
-} from './pages';
+} from '../../pages';
 
-import './App.css';
-import ProtectedRoute from "./components/protected-route";
-import {getUserAsync} from "./services/user/user-slice";
-import AnonymousRoute from "./components/anonymous-route";
-import {getAccessToken} from "./services/utils";
+import './app.css';
+import ProtectedRoute from "../protected-route";
+import {getUserAsync} from "../../services/user/user-slice";
+import {getAccessToken} from "../../services/utils";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -34,7 +33,7 @@ function App() {
 
         const navigate = useNavigate();
 
-        let background = location.state && location.state.background;
+        const background = location.state && location.state.background;
         const handleModalClose = () => {
             navigate(-1);
         };
@@ -48,8 +47,8 @@ function App() {
                         <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/logout" element={<LogoutPage/>}/>
                         <Route path="/register" element={<RegisterPage/>}/>
-                        <Route path="/forgot-password" element={<AnonymousRoute outlet={<ForgotPasswordPage/>} />} />
-                        <Route path="/reset-password" element={<AnonymousRoute outlet={<ResetPasswordPage/>} />} />
+                        <Route path="/forgot-password" element={<ProtectedRoute anonymous={true} outlet={<ForgotPasswordPage/>} />} />
+                        <Route path="/reset-password" element={<ProtectedRoute anonymous={true} outlet={<ResetPasswordPage/>} />} />
                         <Route path="/profile" element={<ProtectedRoute outlet={<ProfilePage />} />} />
                         <Route path='/ingredients/:ingredientId' element={<IngredientDetailsPage/>}/>
                         <Route path="*" element={<NotFound404/>}/>
