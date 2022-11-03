@@ -1,7 +1,7 @@
 import React from 'react';
 import headerStyles from './header.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../hooks";
 import { selectUser } from '../../services/user/user-slice';
 
@@ -31,10 +31,10 @@ export function Header() {
                     </NavLink>
                 </div>
                 <div className={headerStyles.logo}>
-                    <Logo/>
+                    <Link to="/"><Logo/></Link>
                 </div>
                 <div className={headerStyles.menuProfile}>
-                    <NavLink to="/profile" className={className}>
+                    <NavLink to={user ? "/profile" : "/login"} className={className}>
                         {({ isActive }) => (
                             <span className={isActive ? headerStyles.menuItemActive : undefined}>
                                 <ProfileIcon type={isActive ? "primary": "secondary" }/>

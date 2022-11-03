@@ -9,8 +9,6 @@ export function ProfilePage() {
     const user = useAppSelector(selectUser);
     const navLinkClassName = `${styles.sidebarItem} text text_type_main-medium`;
 
-
-
     return (
         <>
             <div className={styles.sidebar}>

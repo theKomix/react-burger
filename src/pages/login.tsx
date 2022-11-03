@@ -1,6 +1,6 @@
 import styles from "./login.module.css";
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {
@@ -13,7 +13,6 @@ import loading from "../images/loading.gif";
 export function LoginPage() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const user = useAppSelector(selectUser);
     const userError = useAppSelector(selectError);
@@ -27,25 +26,20 @@ export function LoginPage() {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         dispatch(loginUserAsync({email, password}));
-        setSubmitted(true);
     }
 
     useEffect(() => {
-        if (submitted && loginStatus === "idle") {
+        if (user) {
             if (state && state.from) {
-                //
-                // реализация redirect на ту страницу, с которой пришел логин
-                //
-                navigate(state.from);
+                navigate(state.from, {replace: true});
             } else {
                 navigate("/");
             }
         }
-    }, [user, submitted, loginStatus, state, navigate]);
+    }, [user, state, navigate]);
 
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
-            {user && <Navigate to="/" />}
             <h1 className="text text_type_main-medium">Вход</h1>
             {loginStatus === "loading" ? <img className={`${styles.done} mt-15 mb-15`} src={loading} alt="done"/>
                 : <>
