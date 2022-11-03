@@ -1,6 +1,6 @@
 import styles from "./user-forms.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
 import {ResetPassword} from "../services/user/user-api";
 
@@ -10,6 +10,7 @@ export function ResetPasswordPage() {
     const [passwordError, setPasswordError] = useState<string>("");
     const [tokenError, setTokenError] = useState<string>("");
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     const clearErrors = () => {
         setPasswordError("");
@@ -41,6 +42,10 @@ export function ResetPasswordPage() {
         } catch {
             setTokenError("Ой, произошла ошибка!");
         }
+    }
+
+    if(!state || !state.email) {
+        return <Navigate to="/forgot-password" replace={true} />;
     }
 
     return (

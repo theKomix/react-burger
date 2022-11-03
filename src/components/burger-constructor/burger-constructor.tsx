@@ -12,15 +12,22 @@ import { selectIngredients } from "../../services/app/app-slice";
 import { Bun } from './bun/bun';
 import { Ingredient } from './ingredient/ingredient';
 import styles from './burger-constructor.module.css';
+import {useNavigate} from "react-router-dom";
+import {selectUser} from "../../services/user/user-slice";
 
 
 export const BurgerConstructor: React.FC = () => {
+    const user = useAppSelector(selectUser);
     const cartState = useAppSelector(selectCart);
     const ingredients = useAppSelector(selectIngredients);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const [orderDetailsShow, setOrderDetailsShow] = React.useState<boolean>(false);
 
     const makeOrder = () => {
+        if (!user) {
+            navigate("/login");
+        }
         dispatch(makeOrderAsync(cartState.items.map(x => x.ingredient)));
         setOrderDetailsShow(true);
     };

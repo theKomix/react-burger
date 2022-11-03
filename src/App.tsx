@@ -7,7 +7,7 @@ import { Modal } from './components/modal/modal';
 import {
     ForgotPasswordPage,
     HomePage, IngredientDetailsPage,
-    LoginPage,
+    LoginPage, LogoutPage,
     NotFound404,
     ProfilePage,
     RegisterPage,
@@ -15,11 +15,18 @@ import {
 } from './pages';
 
 import './App.css';
+import ProtectedRoute from "./components/protected-route";
+import {getUserAsync} from "./services/user/user-slice";
+import AnonymousRoute from "./components/anonymous-route";
+import {getAccessToken} from "./services/utils";
 
 function App() {
     const dispatch = useAppDispatch();
     React.useEffect(() => {
         dispatch(getIngredientsAsync());
+        if (getAccessToken()) {
+            dispatch(getUserAsync());
+        }
     }, [dispatch]);
 
     const ModalSwitch = () => {
@@ -39,10 +46,11 @@ function App() {
                     <Routes location={background || location}>
                         <Route path="/" element={<HomePage/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
+                        <Route path="/logout" element={<LogoutPage/>}/>
                         <Route path="/register" element={<RegisterPage/>}/>
-                        <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
-                        <Route path="/reset-password" element={<ResetPasswordPage/>}/>
-                        <Route path="/profile" element={<ProfilePage/>}/>
+                        <Route path="/forgot-password" element={<AnonymousRoute outlet={<ForgotPasswordPage/>} />} />
+                        <Route path="/reset-password" element={<AnonymousRoute outlet={<ResetPasswordPage/>} />} />
+                        <Route path="/profile" element={<ProtectedRoute outlet={<ProfilePage />} />} />
                         <Route path='/ingredients/:ingredientId' element={<IngredientDetailsPage/>}/>
                         <Route path="*" element={<NotFound404/>}/>
                     </Routes>

@@ -1,19 +1,30 @@
 import {Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './user-forms.module.css';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import React, {useState} from "react";
-import {RegisterUser} from "../services/user/user-api";
+import {useAppDispatch, useAppSelector} from "../hooks";
+import {
+    registerUserAsync,
+    selectError,
+    selectRegistration,
+    selectStatus,
+    selectUser,
+    updateRegistrationField
+} from "../services/user/user-slice";
+import loading from '../images/loading.gif';
 
 export function RegisterPage() {
-    const [name, setName] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-
     const [nameError, setNameError] = useState<string>("");
     const [passwordError, setPasswordError] = useState<string>("");
     const [emailError, setEmailError] = useState<string>("");
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
-    const navigate = useNavigate();
+    const user = useAppSelector(selectUser);
+    const registration = useAppSelector(selectRegistration);
+    const userError = useAppSelector(selectError);
+    const registerStatus = useAppSelector(selectStatus);
+
+    const dispatch = useAppDispatch();
 
     const clearErrors = () => {
         setNameError("");
@@ -24,64 +35,75 @@ export function RegisterPage() {
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         let hasErrors = false;
-        if (!name) {
+        if (!registration.name) {
             setNameError("Введите имя");
             hasErrors = true;
         }
-        if (!password) {
+        if (!registration.password) {
             setPasswordError("Введите пароль");
             hasErrors = true;
         }
-        if (!email) {
+        if (!registration.email) {
             setEmailError("Введите e-mail");
             hasErrors = true;
         }
-        if(hasErrors) {
+        if (hasErrors) {
             return
         }
-        try {
-            const result = await RegisterUser(name, email, password);
-            if(!result) {
-                setPasswordError("Ой, произошла ошибка!");
-            }
-            else {
-                navigate("/login");
-            }
-        } catch {
-            setPasswordError("Ой, произошла ошибка!");
-        }
+        setSubmitted(true);
+        dispatch(registerUserAsync(registration));
     }
 
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
+            { submitted && user && <Navigate to="/" replace={true} />}
+            { registerStatus === "idle" && user && <Navigate to="/profile" replace={true} />}
             <h1 className="text text_type_main-medium">Регистрация</h1>
-            <Input type="text"
-                   placeholder="Имя"
-                   onChange={(e) => {setName(e.target.value); clearErrors()}}
-                   value={name}
-                   name="name"
-                   error={!!nameError}
-                   errorText={nameError} />
-            <div style={{textAlign: "left"}}>
-                <EmailInput
-                       placeholder="E-mail"
-                       onChange={(e) => {setEmail(e.target.value); clearErrors()}}
-                       value={email}
-                       name="email" />
-                {!!emailError && <span className={`${styles.error} text text_type_main-small`}>{emailError}</span>}
-            </div>
-            <div style={{textAlign: "left"}}>
-                <PasswordInput
-                       placeholder="Пароль"
-                       onChange={(e) => {setPassword(e.target.value); clearErrors()}}
-                       value={password}
-                       name="password"/>
-                {!!passwordError && <span className={`${styles.error} text text_type_main-small`}>{passwordError}</span>}
-            </div>
-            <Button type="primary" size="medium" htmlType="submit">
-                Зарегистрироваться
-            </Button>
-            <span className="text text_type_main-small mt-15">Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link></span>
+            {registerStatus === "loading" ? <img className={`${styles.done} mt-15 mb-15`} src={loading} alt="done"/>
+                : <><Input type="text"
+                           placeholder="Имя"
+                           onChange={(e) => {
+                               dispatch(updateRegistrationField({fieldName: "name", fieldValue: e.target.value}));
+                               clearErrors()
+                           }}
+                           value={registration.name}
+                           name="name"
+                           error={!!nameError}
+                           errorText={nameError}/>
+                    <div style={{textAlign: "left"}}>
+                        <EmailInput
+                            placeholder="E-mail"
+                            onChange={(e) => {
+                                dispatch(updateRegistrationField({fieldName: "email", fieldValue: e.target.value}));
+                                clearErrors()
+                            }}
+                            value={registration.email}
+                            name="email"/>
+                        {!!emailError &&
+                            <span className={`${styles.error} text text_type_main-small`}>{emailError}</span>}
+                    </div>
+                    <div style={{textAlign: "left"}}>
+                        <PasswordInput
+                            placeholder="Пароль"
+                            onChange={(e) => {
+                                dispatch(updateRegistrationField({fieldName: "password", fieldValue: e.target.value}));
+                                clearErrors()
+                            }}
+                            value={registration.password}
+                            name="password"/>
+                        {registerStatus === "failed" ?
+                            <span className={`${styles.error} text text_type_main-small`}>{userError}</span>
+                            : (!!passwordError) &&
+                            <span className={`${styles.error} text text_type_main-small`}>{passwordError}</span>
+                        }
+                    </div>
+                    <Button type="primary" size="medium" htmlType="submit">
+                        Зарегистрироваться
+                    </Button>
+                </>
+            }
+            <span className="text text_type_main-small mt-15">Уже зарегистрированы? <Link to="/login"
+                                                                                          className={styles.link}>Войти</Link></span>
         </form>
     );
 }

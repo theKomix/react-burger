@@ -1,11 +1,9 @@
 import {Ingredient} from "../../models/ingredient";
 import {GetIngredientsUrl} from "../api-urls";
+import {checkResponse} from "../utils";
 
 export async function GetIngredients(): Promise<Ingredient[]> {
-    return fetch(GetIngredientsUrl).then(response => {
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        return response.json() as Promise<{ data: Ingredient[] }>
-    }).then(data => data.data)
+    return fetch(GetIngredientsUrl)
+        .then(checkResponse)
+        .then(data => data.data as Promise<Ingredient[]>)
 }

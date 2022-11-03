@@ -21,7 +21,7 @@ export function ForgotPasswordPage() {
                 setError("Пользователь с таким e-mail не найден");
             }
             else {
-                navigate("/reset-password");
+                navigate("/reset-password", {state: {email}});
             }
         } catch {
             setError("Ой, произошла ошибка!");

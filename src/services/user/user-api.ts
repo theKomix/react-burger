@@ -1,61 +1,111 @@
-import {RegisterUserUrl, ResetPasswordUrl, StartResetPasswordUrl} from "../api-urls";
+import {
+    AuthLoginUrl,
+    AuthLogoutUserUrl,
+    AuthRegisterUserUrl,
+    AuthUserUrl,
+    ResetPasswordUrl,
+    StartResetPasswordUrl
+} from "../api-urls";
+import {checkResponse, fetchWithRefresh, getCookie, getRefreshToken} from "../utils";
 
-export async function RegisterUser(name: string, email: string, password: string): Promise<boolean> {
-    return fetch(RegisterUserUrl,
+interface AuthUserResponse{
+    success: boolean,
+    user: {
+        email: string,
+        name: string
+    },
+    accessToken: string,
+    refreshToken: string
+}
+
+interface AuthGetUserResponse{
+    success: boolean,
+    user: {
+        email: string,
+        name: string
+    }
+}
+
+export async function AuthRegisterUser(name: string, email: string, password: string): Promise<AuthUserResponse> {
+    return fetch(AuthRegisterUserUrl,
         {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                "Content-Type": "application/json;charset=utf-8"
             },
             body: JSON.stringify({
                 name,
                 password,
                 email
             })
-        }).then(response => {
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        return response.json() as Promise<{ success: boolean; message: string }>
-    }).then(
-        data => data.success)
+        })
+        .then(checkResponse)
+        .then(data => data as Promise<AuthUserResponse>)
+}
+
+export async function AuthLoginUser(email: string, password: string): Promise<AuthUserResponse> {
+    return fetch(AuthLoginUrl,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify({
+                password,
+                email
+            })
+        })
+        .then(checkResponse)
+        .then(data => data as Promise<AuthUserResponse>)
+}
+
+export async function AuthLogoutUser(): Promise<AuthUserResponse> {
+    return fetch(AuthLogoutUserUrl,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify({
+                token: getRefreshToken()
+            })
+        })
+        .then(checkResponse)
+        .then(data => data as Promise<AuthUserResponse>)
+}
+
+export async function AuthGetUser(): Promise<AuthGetUserResponse> {
+    return fetchWithRefresh(AuthUserUrl, {headers: {"Authorization": `${getCookie("accessToken")}`}})
+        .then(data => data as Promise<AuthGetUserResponse>)
 }
 
 export async function StartResetPassword(email: string): Promise<boolean> {
     return fetch(StartResetPasswordUrl,
         {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                "Content-Type": "application/json;charset=utf-8"
             },
             body: JSON.stringify({
                 email
             })
-        }).then(response => {
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        return response.json() as Promise<{ success: boolean; message: string }>
-    }).then(
-        data => data.success)
+        })
+        .then(checkResponse)
+        .then(data => data.success)
 }
 
 export async function ResetPassword(newPassword: string, token: string): Promise<boolean> {
     return fetch(ResetPasswordUrl,
         {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                "Content-Type": "application/json;charset=utf-8"
             },
             body: JSON.stringify({
                 password: newPassword,
                 token: token
             })
-        }).then(response => {
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        return response.json() as Promise<{ success: boolean; message: string }>
-    }).then(
-        data => data.success)
+        })
+        .then(checkResponse)
+        .then(data => data.success)
 }
