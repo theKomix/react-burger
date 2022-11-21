@@ -14,10 +14,11 @@ import {
     ResetPasswordPage
 } from '../../pages';
 
-import './app.css';
+import './app.module.css';
 import ProtectedRoute from "../protected-route";
 import {getUserAsync} from "../../services/user/user-slice";
 import {getAccessToken} from "../../services/utils";
+import styles from './app.module.css';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -39,9 +40,9 @@ function App() {
         };
 
         return (
-            <div className="App">
+            <div className={styles.App}>
                 <Header/>
-                <div className="content">
+                <div className={styles.content}>
                     <Routes location={background || location}>
                         <Route path="/" element={<HomePage/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
