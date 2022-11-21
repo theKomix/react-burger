@@ -2,14 +2,13 @@ import React, {forwardRef} from 'react';
 import {Ingredient} from "../../../models/ingredient";
 import {BurgerIngredient} from "../burger-ingredient/burger-ingredient";
 import styles from './burger-ingredient-block.module.css';
-import {useAppSelector} from "../../app/hooks";
+import {useAppSelector} from "../../../hooks";
 import {selectIngredients} from "../../../services/app/app-slice";
 import {selectCart} from "../../../services/cart/cart-slice";
 
 export const BurgerIngredientBlock = forwardRef<HTMLDivElement, {
-    onIngredientClick: (item: Ingredient) => void;
     title: string;
-    type: "bun" | "main" | "sauce"}>( ({ onIngredientClick, title, type}, ref) => {
+    type: "bun" | "main" | "sauce"}>( ({ title, type}, ref) => {
         const ingredients = useAppSelector(selectIngredients);
         const orderState = useAppSelector(selectCart);
 
@@ -22,7 +21,7 @@ export const BurgerIngredientBlock = forwardRef<HTMLDivElement, {
                 <p className="text text_type_main-medium mb-6" style={{textAlign: "left"}}>{title}</p>
                 <div className={styles.blockContent}>
                     {ingredients.filter((item) => (item.type === type)).map((item) => (
-                        <BurgerIngredient key={item._id} item={item} count={getSelectedCount(item)} onClick={onIngredientClick}/>
+                        <BurgerIngredient key={item._id} item={item} count={getSelectedCount(item)} />
                     ))}
                 </div>
             </div>

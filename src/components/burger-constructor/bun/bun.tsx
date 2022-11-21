@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDrop } from 'react-dnd';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { addIngredient } from '../../../services/cart/cart-slice';
 import {Ingredient} from "../../../models/ingredient";
 import { selectIngredients } from '../../../services/app/app-slice';

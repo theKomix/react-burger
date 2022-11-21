@@ -12,14 +12,14 @@ export type OrderState = {
 export const initialState = {number: null, status: 'idle', error: null} as OrderState;
 
 export const makeOrderAsync = createAsyncThunk(
-  'cart/makeOrder',
+  "cart/makeOrder",
   async (order: Ingredient[]) => {
     return await MakeOrder(order);
   }
 );
 
 export const orderSlice = createSlice({
-  name: 'order',
+  name: "order",
   initialState,
   reducers: {
     resetError: (state) => {
@@ -29,22 +29,21 @@ export const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(makeOrderAsync.pending, (state) => {
-        state.status = 'loading';
-        state.error = '';
+        state.status = "loading";
+        state.error = "";
       })
       .addCase(makeOrderAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.error = '';
+        state.status = "idle";
+        state.error = "";
         state.number = action.payload.order.number;
       })
-      .addCase(makeOrderAsync.rejected, (state) => {
-        state.status = 'failed';
-        state.error = 'При создании заказа произошла ошибка, перезагрузите страницу...';
+      .addCase(makeOrderAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "При создании заказа произошла ошибка, перезагрузите страницу...";
       });
   },
 });
 
 export const selectOrder = (state: RootState) => state.order;
 
-export const { resetError } = orderSlice.actions;
 export default orderSlice.reducer;

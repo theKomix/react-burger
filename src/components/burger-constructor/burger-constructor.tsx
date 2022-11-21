@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderDetails } from "./order-details/order-details";
-import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import {
     addIngredient,
     selectCart
@@ -12,15 +12,22 @@ import { selectIngredients } from "../../services/app/app-slice";
 import { Bun } from './bun/bun';
 import { Ingredient } from './ingredient/ingredient';
 import styles from './burger-constructor.module.css';
+import {useNavigate} from "react-router-dom";
+import {selectUser} from "../../services/user/user-slice";
 
 
 export const BurgerConstructor: React.FC = () => {
+    const user = useAppSelector(selectUser);
     const cartState = useAppSelector(selectCart);
     const ingredients = useAppSelector(selectIngredients);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const [orderDetailsShow, setOrderDetailsShow] = React.useState<boolean>(false);
 
     const makeOrder = () => {
+        if (!user) {
+            navigate("/login");
+        }
         dispatch(makeOrderAsync(cartState.items.map(x => x.ingredient)));
         setOrderDetailsShow(true);
     };

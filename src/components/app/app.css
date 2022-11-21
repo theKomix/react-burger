@@ -24,8 +24,9 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.link {
+  color: #4C4CFF;
+  text-decoration: none;
 }
 
 .loading {
@@ -34,6 +35,10 @@
   position: absolute;
   top: calc(50% - 50px);
   left: calc(50% - 50px);
+}
+
+.content {
+  margin-top: calc(var(--offset-base-size) * 22 * 2);
 }
 
 @keyframes App-logo-spin {

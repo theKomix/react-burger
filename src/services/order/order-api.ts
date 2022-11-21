@@ -1,5 +1,6 @@
 import {Ingredient} from "../../models/ingredient";
 import {PostOrderUrl} from "../api-urls";
+import {fetchWithRefresh, getAccessToken} from "../utils";
 
 export interface MakeOrderResult {
   name: string,
@@ -10,16 +11,17 @@ export interface MakeOrderResult {
 }
 
 export async function MakeOrder(order: Ingredient[]): Promise<MakeOrderResult> {
-  return fetch(PostOrderUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
+  if (order.length === 0 || !order.some(i => i.type === "bun")) {
+    throw new Error("Бургег без булок - не бургер!");
+  }
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set("Content-Type", "application/json;charset=utf-8");
+  requestHeaders.set("Authorization", getAccessToken());
+
+  return fetchWithRefresh(PostOrderUrl, {
+    method: "POST",
+    headers: requestHeaders,
     body: JSON.stringify({"ingredients": order.map(i => i._id)})
-  }).then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return response.json() as Promise<MakeOrderResult>
   })
+      .then(data => data as Promise<MakeOrderResult>)
 }
