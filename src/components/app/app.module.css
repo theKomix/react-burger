@@ -1,0 +1,7 @@
+.App {
+  text-align: center;
+}
+
+.content {
+  margin-top: calc(var(--offset-base-size) * 22 * 2);
+}
