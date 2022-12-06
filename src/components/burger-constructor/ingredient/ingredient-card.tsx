@@ -2,7 +2,13 @@ import * as React from 'react';
 import { useDrop, useDrag} from 'react-dnd';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import {addIngredient, CartItem, moveIngredient, removeIngredient, selectCart} from '../../../services/cart/cart-slice';
+import {
+    addIngredient,
+    CartItem,
+    moveIngredient,
+    removeIngredient,
+    selectCart
+} from '../../../services/cart/cart-slice';
 import { selectIngredients } from '../../../services/app/app-slice';
 import styles from '../burger-constructor.module.css';
 
@@ -11,7 +17,7 @@ interface Item {
     originalIndex: number
 }
 
-export const Ingredient: React.FC<{
+export const IngredientCard: React.FC<{
     item: CartItem
     }> = ({item}) => {
 
