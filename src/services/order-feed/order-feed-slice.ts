@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import {act} from "react-dom/test-utils";
+import {OrderList} from "../../models/order-list";
 
 export enum WebsocketStatus {
   CONNECTING = 'CONNECTING...',
@@ -9,26 +9,13 @@ export enum WebsocketStatus {
 }
 
 export type OrderFeedState = {
-  items: OrderFeedItem[];
-  total: number;
-  totalToday: number;
+  orderList: OrderList;
   status: WebsocketStatus;
   connectionError: string;
 }
 
-export interface OrderFeedItem {
-  _id: string;
-  status: string; //"done" | "";
-  number: number;
-  createdAt: string;
-  updateAt: string;
-  ingredients: string[];
-}
-
 export const initialState = {
-  items: [],
-  total: 0,
-  totalToday: 0,
+  orderList: { orders: [], total: 0, totalToday: 0 },
   status: WebsocketStatus.OFFLINE,
   connectionError: ""} as OrderFeedState;
 
@@ -57,12 +44,14 @@ export const orderFeedSlice = createSlice({
       state.connectionError = action.payload;
     },
     message: (state, action: PayloadAction<string>) =>{
-      state.items = JSON.parse(action.payload).orders;
+      state.orderList = JSON.parse(action.payload);
     }
   }
 });
 
-export const selectOrderFeed = (state: RootState) => state.orderFeed;
+export const selectOrderList = (state: RootState) => state.orderFeed.orderList;
+export const selectStatus = (state: RootState) => state.orderFeed.status;
+export const selectError = (state: RootState) => state.orderFeed.connectionError;
 
 export const { connect, connecting, disconnect, connected, close, error, message } = orderFeedSlice.actions;
 

@@ -11,10 +11,10 @@ import { makeOrderAsync } from '../../services/order/order-slice';
 import { selectIngredients } from "../../services/app/app-slice";
 import { Bun } from './bun/bun';
 import { IngredientCard } from './ingredient/ingredient-card';
-import styles from './burger-constructor.module.css';
 import {useNavigate} from "react-router-dom";
 import {selectUser} from "../../services/user/user-slice";
-
+import appStyles from '../app/app.module.css';
+import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor: React.FC = () => {
     const user = useAppSelector(selectUser);
@@ -53,7 +53,7 @@ export const BurgerConstructor: React.FC = () => {
     const innerIngredients = cartState.items.filter(i => i.ingredient.type !== "bun");
 
     return (
-        <div className={`${styles.content} pt-25`}>
+        <div className={`${appStyles.mainRightColumn} pt-25`}>
             <div className={styles.ingredients}>
                 <Bun bun={bun} isTop={true}/>
 

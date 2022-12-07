@@ -1,0 +1,49 @@
+.error {
+    color: var(--colors-interface-error);
+    margin-left: 24px;
+    margin-top: 2px;
+    font-size: 16px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 60px;
+    padding-left: 20px;
+}
+
+.ordersNumbers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 60px;
+    text-align: left;
+}
+
+
+.readyOrders {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    color: #00CCCC;
+    height: 236px;
+    width: 280px;
+}
+
+.pendingOrders {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    height: 236px;
+    width: 280px;
+}
+
+
+.count {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}

@@ -19,7 +19,6 @@ import ProtectedRoute from "../protected-route";
 import {getUserAsync} from "../../services/user/user-slice";
 import {getAccessToken} from "../../services/utils";
 import styles from './app.module.css';
-import {OrderFeed} from "../order-feed/order-feed";
 import {OrderFeedPage} from "../../pages/order-feed";
 
 function App() {
