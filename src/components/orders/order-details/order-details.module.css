@@ -1,0 +1,92 @@
+.content {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.container {
+    width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.headerOffset {
+    margin-top: -36px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sum {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 9px;
+}
+
+.left {
+    text-align: left;
+}
+
+.compound {
+    height: 312px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.item {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.imageName {
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.imageName > span {
+    text-align: left;
+    margin-left: 64px;
+}
+
+.imageContainer {
+    position: relative;
+}
+
+.imageWrapper {
+    position: absolute;
+    top: -32px;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(#801AB3, #4C4CFF);
+    border-radius: 50%;
+}
+
+.image {
+    position: absolute;
+    top: -32px;
+    width: 60px;
+    height: 60px;
+    background: #131316;
+    border-radius: 50%;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.image > img {
+    width: 112px;
+    margin-left: -26px;
+    margin-top: 4px;
+}

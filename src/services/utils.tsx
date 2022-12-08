@@ -88,3 +88,29 @@ export function setCookie(name: string, value: string | number | boolean, props:
 function deleteCookie(name: string) {
     setCookie(name, "", { expires: -1 });
 }
+
+export function getBeautyDate(date: Date) {
+    const now = new Date();
+    const time = `${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+    const diff = Math.abs(new Date(now.toDateString()).getTime() - new Date(date.toDateString()).getTime());
+    const daysDiff = Math.floor(diff / (1000 * 3600 * 24));
+    if (daysDiff === 0) {
+        return `Сегодня, ${time}`;
+    }
+    if (daysDiff === 1) {
+        return `Вчера, ${time}`;
+    }
+    if (daysDiff < 5) {
+        return `${daysDiff} дня назад, ${time}`;
+    }
+    if (daysDiff <= 7) {
+        return `${daysDiff} дней назад, ${time}`;
+    }
+    return `${date.toLocaleDateString()}, ${time}`;
+}
+
+export const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+    arr.reduce((groups, item) => {
+        (groups[key(item)] ||= []).push(item);
+        return groups;
+    }, {} as Record<K, T[]>);

@@ -4,36 +4,20 @@ import {useAppSelector} from "../../../hooks";
 import {Order} from "../../../models/order";
 import {selectIngredients} from "../../../services/app/app-slice";
 import styles from './order-list-item.module.css';
+import {Link, useLocation} from 'react-router-dom';
+import {getBeautyDate} from "../../../services/utils";
+import {OrderStatus} from "../order-status/order-status";
 
 export const OrderListItem : React.FC<{item: Order, showState?: boolean}> = ({item, showState= false}) => {
+    const location = useLocation();
     const ingredients = useAppSelector(selectIngredients);
-
-    const getOrderBeautyDate = () => {
-        const now = new Date();
-        const date = new Date(item.createdAt);
-        const time = `${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-        const diff = Math.abs(new Date(now.toDateString()).getTime() - new Date(date.toDateString()).getTime());
-        const daysDiff = Math.floor(diff / (1000 * 3600 * 24));
-        if (daysDiff === 0) {
-            return `Сегодня, ${time}`;
-        }
-        if (daysDiff === 1) {
-            return `Вчера, ${time}`;
-        }
-        if (daysDiff < 5) {
-            return `${daysDiff} дня назад, ${time}`;
-        }
-        if (daysDiff <= 7) {
-            return `${daysDiff} дней назад, ${time}`;
-        }
-        return `${date.toLocaleDateString()}, ${time}`;
-    };
 
     const getIngredients = () => {
         const ings = item.ingredients.map(id => ingredients.find(x => x._id === id)!);
         const sum = ings.reduce((partialSum, a) => (partialSum + a.price), 0);
         const slicedIngs = ings.slice(0, 6);
         let residual = ings.length - slicedIngs.length;
+
         return <>
             <div>
                 {slicedIngs.map((ing, index) =>
@@ -58,33 +42,23 @@ export const OrderListItem : React.FC<{item: Order, showState?: boolean}> = ({it
         </>
     }
 
-    const getStatus = () => {
-        switch (item.status){
-            case "created":
-                return "Создан";
-            case "pending":
-                return "Готовится";
-            case "done":
-                return <span className={styles.statusDone}>Выполнен</span>;
-            case "canceled":
-                return <span className={styles.statusCancel}>Отменен</span>;
-        }
-        return <></>;
-    }
-
     return (
-        <div className={styles.container}>
-            <div className={styles.header}>
-                <span className="text text_type_digits-default">#{item.number}</span>
-                <span className={`text text_color_inactive text_type_main-default`}>{getOrderBeautyDate()}</span>
+        <Link
+            to={`${item.number}`}
+            state={{background: location}}
+            className={styles.link}
+        >
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <span className="text text_type_digits-default">#{item.number}</span>
+                    <span className={`text text_color_inactive text_type_main-default`}>{getBeautyDate(new Date(item.createdAt))}</span>
+                </div>
+                <div className={`${styles.name}`}>
+                    <span className="text text_type_main-medium">{item.name}</span>
+                    {showState && <OrderStatus status={item.status}/>}
+                </div>
+                <div className={styles.orderDetails}>{getIngredients()}</div>
             </div>
-            <div className={`${styles.name} text`}>
-                <span className="text_type_main-medium">{item.name}</span>
-                {showState && <span>
-                    {getStatus()}
-                </span>}
-            </div>
-            <div className={styles.orderDetails}>{getIngredients()}</div>
-        </div>
+        </Link>
     )
 }

@@ -31,14 +31,6 @@
     gap: 8px;
 }
 
-.statusCancel {
-    color: var(--colors-interface-error);
-}
-
-.statusDone {
-    color: #00CCCC;
-}
-
 .orderDetails {
     position: relative;
     height: 64px;
@@ -94,4 +86,9 @@
     padding-top: 16px;
     text-align: right;
     width: 100%;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
 }

@@ -1,6 +1,7 @@
 import {Ingredient} from "../../models/ingredient";
-import {PostOrderUrl} from "../api-urls";
-import {fetchWithRefresh, getAccessToken} from "../utils";
+import { Order } from "../../models/order";
+import {GetOrderUrl, PostOrderUrl} from "../api-urls";
+import {checkResponse, fetchWithRefresh, getAccessToken} from "../utils";
 
 export interface MakeOrderResult {
   name: string,
@@ -8,6 +9,11 @@ export interface MakeOrderResult {
     number: string | null
   },
   success: boolean
+}
+
+export interface GetOrderResult {
+  success: boolean;
+  orders: Order[];
 }
 
 export async function MakeOrder(order: Ingredient[]): Promise<MakeOrderResult> {
@@ -24,4 +30,14 @@ export async function MakeOrder(order: Ingredient[]): Promise<MakeOrderResult> {
     body: JSON.stringify({"ingredients": order.map(i => i._id)})
   })
       .then(data => data as Promise<MakeOrderResult>)
+}
+
+export async function GetOrderByNumber(number: string): Promise<GetOrderResult>  {
+  const res = await fetch(`${GetOrderUrl}${number}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await checkResponse(res).then(data => data as Promise<GetOrderResult>);
 }

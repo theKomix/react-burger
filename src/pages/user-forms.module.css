@@ -20,3 +20,8 @@
 .inputContainer {
     text-align: left;
 }
+
+.loading {
+    position: absolute;
+    left: calc(50% - 100px);
+}

@@ -3,6 +3,7 @@ const wsEndPoint = "wss://norma.nomoreparties.space";
 
 export const GetIngredientsUrl = `${apiEndPoint}/ingredients`;
 export const PostOrderUrl = `${apiEndPoint}/orders`;
+export const GetOrderUrl = `${apiEndPoint}/orders/`;
 
 export const StartResetPasswordUrl = `${apiEndPoint}/password-reset`;
 export const ResetPasswordUrl = `${apiEndPoint}/password-reset/reset`;

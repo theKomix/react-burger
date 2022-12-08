@@ -1,9 +1,11 @@
 export interface Order {
     _id: string;
-    status: "created" | "pending" | "done" | "canceled";
+    status: OrderStatusType;
     name: string;
     number: number;
     createdAt: string;
     updateAt: string;
     ingredients: string[];
 }
+
+export type OrderStatusType = "created" | "pending" | "done" | "canceled";

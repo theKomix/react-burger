@@ -1,22 +1,31 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { MakeOrder } from './order-api';
+import {GetOrderByNumber, MakeOrder} from './order-api';
 import {Ingredient} from "../../models/ingredient";
+import {Order} from "../../models/order";
 
 export type OrderState = {
   number: string|null;
   status: 'idle' | 'loading' | 'failed';
+  details: Order | null;
   error: string|null;
 }
 
-export const initialState = {number: null, status: 'idle', error: null} as OrderState;
+export const initialState = {number: null, status: 'idle', error: null, details: null} as OrderState;
 
 export const makeOrderAsync = createAsyncThunk(
-  "cart/makeOrder",
+  "order/makeOrder",
   async (order: Ingredient[]) => {
     return await MakeOrder(order);
   }
 );
+
+export const getOrderAsync = createAsyncThunk(
+    "order/getOrder",
+    async (number: string) => {
+      return await GetOrderByNumber(number);
+    }
+)
 
 export const orderSlice = createSlice({
   name: "order",
@@ -40,6 +49,26 @@ export const orderSlice = createSlice({
       .addCase(makeOrderAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "При создании заказа произошла ошибка, перезагрузите страницу...";
+      })
+      .addCase(getOrderAsync.pending, (state) => {
+        state.status = "loading";
+        state.error = "";
+        state.details = null;
+      })
+      .addCase(getOrderAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        if (action.payload.success && action.payload.orders.length > 0) {
+          state.details = action.payload.orders[0];
+          state.error = "";
+        }
+        else {
+          state.error = "Заказ не найден";
+          state.details = null;
+        }
+      })
+      .addCase(getOrderAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "При получении заказа произошла ошибка, перезагрузите страницу...";
       });
   },
 });
