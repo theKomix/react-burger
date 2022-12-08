@@ -8,8 +8,10 @@ export enum WebsocketStatus {
   OFFLINE = 'OFFLINE'
 }
 
+export type OrderListState = Omit<OrderList, 'success' | 'message'>;
+
 export type OrderFeedState = {
-  orderList: OrderList;
+  orderList: OrderListState;
   status: WebsocketStatus;
   connectionError: string;
 }
@@ -38,13 +40,32 @@ export const orderFeedSlice = createSlice({
     },
     close: (state) =>{
       state.status = WebsocketStatus.OFFLINE;
+      state.orderList = { orders: [], total: 0, totalToday: 0 };
     },
     error: (state, action: PayloadAction<string>) => {
       state.status = WebsocketStatus.OFFLINE;
       state.connectionError = action.payload;
+      state.orderList = { orders: [], total: 0, totalToday: 0 };
     },
-    message: (state, action: PayloadAction<string>) =>{
-      state.orderList = JSON.parse(action.payload);
+    message: (state, action: PayloadAction<string>) => {
+      const response: OrderList = JSON.parse(action.payload);
+      if (response.success) {
+        state.orderList = response;
+        state.orderList.orders = state.orderList.orders.sort((n1,n2) => {
+          if (n1.createdAt < n2.createdAt) {
+            return 1;
+          }
+
+          if (n1.createdAt > n2.createdAt) {
+            return -1;
+          }
+
+          return 0;
+        });
+      }
+      else {
+        state.orderList = { orders: [], total: 0, totalToday: 0 };
+      }
     }
   }
 });

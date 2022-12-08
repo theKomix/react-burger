@@ -3,9 +3,9 @@ import { HomePage } from './home';
 import { RegisterPage } from './register';
 import { ForgotPasswordPage } from './forgot-password';
 import { ResetPasswordPage } from './reset-password';
-import { ProfilePage } from './profile';
+import { ProfilePage } from './profile/profile';
 import { NotFound404 } from './not-found';
 import { IngredientDetailsPage } from './ingredient-details';
-import { LogoutPage } from './logout';
+import { LogoutPage } from './profile/logout';
 
 export { LoginPage, HomePage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, IngredientDetailsPage, LogoutPage, NotFound404 };

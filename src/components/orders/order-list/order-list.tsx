@@ -10,7 +10,7 @@ export const OrderList : React.FC<{showState?: boolean}> = ({showState= false}) 
     return (
         <div className={styles.container}>
             {orderList.orders.map((item) =>
-                <OrderListItem key={item._id} item={item} showState={showState}/>)}
+                <OrderListItem key={item.number} item={item} showState={showState}/>)}
         </div>
     )
 }

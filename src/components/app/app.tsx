@@ -19,7 +19,8 @@ import ProtectedRoute from "../protected-route";
 import {getUserAsync} from "../../services/user/user-slice";
 import {getAccessToken} from "../../services/utils";
 import styles from './app.module.css';
-import {OrderFeedPage} from "../../pages/order-feed";
+import {OrderFeedPage} from "../../pages/feed";
+import {OrdersPage} from "../../pages/profile/orders";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -52,6 +53,7 @@ function App() {
                         <Route path="/forgot-password" element={<ProtectedRoute anonymous={true} outlet={<ForgotPasswordPage/>} />} />
                         <Route path="/reset-password" element={<ProtectedRoute anonymous={true} outlet={<ResetPasswordPage/>} />} />
                         <Route path="/profile" element={<ProtectedRoute outlet={<ProfilePage />} />} />
+                        <Route path="/profile/orders" element={<ProtectedRoute outlet={<OrdersPage />} />} />
                         <Route path='/ingredients/:ingredientId' element={<IngredientDetailsPage/>}/>
                         <Route path="/feed" element={<OrderFeedPage/>}/>
                         <Route path="*" element={<NotFound404/>}/>

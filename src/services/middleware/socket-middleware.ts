@@ -30,7 +30,11 @@ export const createSocketMiddleware = (wsActions: TwsActionTypes): Middleware<{}
         console.log("Websocket connect");
         url = action.payload.url;
         token = action.payload.token;
-        socket = new WebSocket(url);
+        let urlForConnect = url;
+        if (token) {
+          urlForConnect = `${url}?token=${token}`;
+        }
+        socket = new WebSocket(urlForConnect);
         isConnected = true;
         window.clearTimeout(reconnectTimer);
         dispatch(connecting());
@@ -48,7 +52,6 @@ export const createSocketMiddleware = (wsActions: TwsActionTypes): Middleware<{}
 
         socket.onmessage = (event: MessageEvent) => {
           const { data } = event;
-          // const parsedData = JSON.parse(data);
           dispatch(message(data));
         };
 
@@ -57,8 +60,7 @@ export const createSocketMiddleware = (wsActions: TwsActionTypes): Middleware<{}
             console.log(event.reason);
             dispatch(error(event.reason));
           }
-
-          if (isConnected) {
+          else if (isConnected) {
             dispatch(connecting());
             reconnectTimer = window.setTimeout(() => {
               dispatch(connect({ url, token }));

@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {Navigate, useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../hooks";
-import {logoutUserAsync, selectError, selectStatus, selectUser} from "../services/user/user-slice";
-import styles from "./user-forms.module.css";
-import loading from "../images/loading.gif";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {logoutUserAsync, selectError, selectStatus, selectUser} from "../../services/user/user-slice";
+import styles from "../user-forms.module.css";
+import loading from "../../images/loading.gif";
 
 
 export function LogoutPage() {

@@ -12,7 +12,8 @@ export const OrderListItem : React.FC<{item: Order, showState?: boolean}> = ({it
         const now = new Date();
         const date = new Date(item.createdAt);
         const time = `${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-        const daysDiff = now.getDate() - date.getDate();
+        const diff = Math.abs(new Date(now.toDateString()).getTime() - new Date(date.toDateString()).getTime());
+        const daysDiff = Math.floor(diff / (1000 * 3600 * 24));
         if (daysDiff === 0) {
             return `Сегодня, ${time}`;
         }
@@ -36,12 +37,12 @@ export const OrderListItem : React.FC<{item: Order, showState?: boolean}> = ({it
         return <>
             <div>
                 {slicedIngs.map((ing, index) =>
-                    <>
-                        <div key={index} className={styles.imageWrapper} style={{zIndex: `${10-index}`, left: `${24 + index*48}px`}}/>
+                    <div key={index}>
+                        <div  className={styles.imageWrapper} style={{zIndex: `${10-index}`, left: `${24 + index*48}px`}}/>
                         <div className={styles.image} style={{zIndex: `${10-index}`, left: `${26 + index*48}px`}}>
                             {<img src={ing.image_mobile} alt={ing.name} />}
                         </div>
-                    </>
+                    </div>
                 )
                 }
                 {residual > 0 && <>

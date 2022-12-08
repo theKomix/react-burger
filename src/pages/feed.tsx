@@ -9,7 +9,7 @@ import {
 } from "../services/order-feed/order-feed-slice";
 import {OrderList} from "../components/orders/order-list/order-list";
 import loading from "../images/loading.gif";
-import styles from "./order-feed.module.css";
+import styles from "./feed.module.css";
 import appStyles from "../components/app/app.module.css";
 
 export function OrderFeedPage() {
