@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { OrderDetails } from "./order-details/order-details";
+import { OrderConfirmation } from "./order-confirmation/order-confirmation";
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import {
     addIngredient,
@@ -10,11 +10,11 @@ import {
 import { makeOrderAsync } from '../../services/order/order-slice';
 import { selectIngredients } from "../../services/app/app-slice";
 import { Bun } from './bun/bun';
-import { Ingredient } from './ingredient/ingredient';
-import styles from './burger-constructor.module.css';
+import { IngredientCard } from './ingredient/ingredient-card';
 import {useNavigate} from "react-router-dom";
 import {selectUser} from "../../services/user/user-slice";
-
+import appStyles from '../app/app.module.css';
+import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor: React.FC = () => {
     const user = useAppSelector(selectUser);
@@ -53,14 +53,14 @@ export const BurgerConstructor: React.FC = () => {
     const innerIngredients = cartState.items.filter(i => i.ingredient.type !== "bun");
 
     return (
-        <div className={`${styles.content} pt-25`}>
+        <div className={`${appStyles.mainRightColumn} pt-25`}>
             <div className={styles.ingredients}>
                 <Bun bun={bun} isTop={true}/>
 
                 {innerIngredients.length ?
                     <div className={`${styles.customContent} mt-4 mb-4`}>
                         {innerIngredients.map((item) =>
-                            <Ingredient key={item.id} item={item} />)}
+                            <IngredientCard key={item.id} item={item} />)}
                     </div>
                     : <div className={`${styles.dropContent} ${isHover && styles.hover}`} ref={ingredientsTarget}>
                         <span className="text text_type_main-medium">Перетащите сюда ингредиенты</span>
@@ -72,7 +72,7 @@ export const BurgerConstructor: React.FC = () => {
                 <CurrencyIcon type="primary"/>
                 <Button htmlType="button" extraClass="ml-10 mr-8" onClick={makeOrder}>Оформить заказ</Button>
             </div>
-            <OrderDetails onClose={onDetailsClose} show={orderDetailsShow}/>
+            <OrderConfirmation onClose={onDetailsClose} show={orderDetailsShow}/>
         </div>
     )
 }

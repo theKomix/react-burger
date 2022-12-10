@@ -14,7 +14,7 @@ export const Modal: React.FC<{onClose: () => void, header: string, children: Rea
         }
     }, [onClose]);
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
 
         return () => {

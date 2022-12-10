@@ -21,7 +21,7 @@ export function Header() {
                             </span>
                             )}
                     </NavLink>
-                    <NavLink to="/orders" className={className}>
+                    <NavLink to="/feed" className={className}>
                         {({ isActive }) => (
                             <span className={isActive ? headerStyles.menuItemActive : undefined}>
                                 <ListIcon type={isActive ? "primary": "secondary" }/>

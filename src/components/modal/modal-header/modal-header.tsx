@@ -6,6 +6,6 @@ export const ModalHeader: React.FC<{onClose: () => void, children: React.ReactNo
     return (
         <div className={styles.header}>
             <div className="text text_type_main-large">{children}</div>
-            <CloseIcon onClick={onClose} type="primary" />
+            <span className={styles.close}><CloseIcon onClick={onClose} type="primary" /></span>
         </div>);
 };

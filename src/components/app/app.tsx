@@ -11,7 +11,10 @@ import {
     NotFound404,
     ProfilePage,
     RegisterPage,
-    ResetPasswordPage
+    ResetPasswordPage,
+    OrderFeedPage,
+    OrdersPage,
+    OrderDetailsPage
 } from '../../pages';
 
 import './app.module.css';
@@ -51,17 +54,37 @@ function App() {
                         <Route path="/forgot-password" element={<ProtectedRoute anonymous={true} outlet={<ForgotPasswordPage/>} />} />
                         <Route path="/reset-password" element={<ProtectedRoute anonymous={true} outlet={<ResetPasswordPage/>} />} />
                         <Route path="/profile" element={<ProtectedRoute outlet={<ProfilePage />} />} />
+                        <Route path="/profile/orders/:id" element={<ProtectedRoute outlet={<OrderDetailsPage />} />} />
+                        <Route path="/profile/orders" element={<ProtectedRoute outlet={<OrdersPage />} />} />
                         <Route path='/ingredients/:ingredientId' element={<IngredientDetailsPage/>}/>
+                        <Route path="/feed" element={<OrderFeedPage/>}/>
+                        <Route path="/feed/:id" element={<OrderDetailsPage/>}/>
                         <Route path="*" element={<NotFound404/>}/>
                     </Routes>
 
                     {background && (
                         <Routes>
                             <Route
-                                path='/ingredients/:ingredientId'
+                                path="/ingredients/:ingredientId"
                                 element={
                                     <Modal header="Детали ингридиента" onClose={handleModalClose}>
                                         <IngredientDetailsPage />
+                                    </Modal>
+                                }
+                            />
+                            <Route
+                                path="/profile/orders/:id"
+                                element={
+                                    <Modal header="" onClose={handleModalClose}>
+                                        <OrderDetailsPage showHeader={true}/>
+                                    </Modal>
+                                }
+                            />
+                            <Route
+                                path="/feed/:id"
+                                element={
+                                    <Modal header="" onClose={handleModalClose}>
+                                        <OrderDetailsPage showHeader={true} />
                                     </Modal>
                                 }
                             />

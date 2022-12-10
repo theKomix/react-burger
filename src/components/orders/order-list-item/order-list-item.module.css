@@ -1,0 +1,94 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    gap: 24px;
+    /*height: 214px;*/
+    background: #1C1C21;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 48px);
+    padding-left: 24px;
+}
+
+.name {
+    padding-left: 24px;
+    width: calc(100% - 48px);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.orderDetails {
+    position: relative;
+    height: 64px;
+    width: calc(100% - 24px);
+}
+
+.imageWrapper {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(#801AB3, #4C4CFF);
+    border-radius: 50%;
+}
+
+.image {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: #131316;
+    border-radius: 50%;
+    margin-top: 2px;
+}
+
+.lastIngredientFade {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: #131316;
+    opacity: 50%;
+    z-index: 5;
+    left: 266px;
+    margin-top: 2px;
+}
+
+.lastIngredientResidual {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    z-index: 5;
+    left: 264px;
+    margin-top: 20px;
+}
+
+.image > img {
+    width: 112px;
+    margin-left: -26px;
+    margin-top: 4px;
+}
+
+.orderSum {
+    padding-top: 16px;
+    text-align: right;
+    width: 100%;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}

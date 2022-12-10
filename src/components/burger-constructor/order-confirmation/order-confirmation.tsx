@@ -1,12 +1,12 @@
 import * as React from "react";
-import {Modal} from "../../modal/modal";import styles from "./order-details.module.css";
+import {Modal} from "../../modal/modal";import styles from "./order-confirmation.module.css";
 import done from '../../../images/done.png';
 import loading from '../../../images/loading.gif';
 import error from '../../../images/error.png';
 import {useAppSelector} from "../../../hooks";
 import {selectOrder} from "../../../services/order/order-slice";
 
-export const OrderDetails: React.FC<{
+export const OrderConfirmation: React.FC<{
     show: boolean;
     onClose: () => void
 }> = ( {show, onClose} ) => {

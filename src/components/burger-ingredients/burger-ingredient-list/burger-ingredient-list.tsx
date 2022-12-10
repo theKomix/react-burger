@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {BurgerIngredientBlock} from "../burger-ingredient-block/burger-ingredient-block";
+import appStyles from '../../app/app.module.css';
 import styles from "./burger-ingredient-list.module.css";
 
 export const BurgerIngredientList: React.FC = () => {
@@ -42,7 +43,7 @@ export const BurgerIngredientList: React.FC = () => {
     };
 
     return (
-        <div className={styles.content}>
+        <div className={appStyles.mainLeftColumn}>
             <p className="text text_type_main-large mt-10 mb-5" style={{textAlign: "left"}}>
                 Соберите бургер
             </p>
