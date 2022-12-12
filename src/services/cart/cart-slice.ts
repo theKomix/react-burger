@@ -39,7 +39,7 @@ export const cartSlice = createSlice({
       state.sum = calcSum(state.items);
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter(i => i.id !== action.payload);
+      state.items = state.items.filter(i => i.id !== action.payload || i.ingredient.type === "bun");
       state.sum = calcSum(state.items);
     },
     moveIngredient: (state, action: PayloadAction<{id: string, newIndex: number}>) => {
@@ -48,7 +48,6 @@ export const cartSlice = createSlice({
       const oldIndex = state.items.indexOf(item!);
       state.items.splice(oldIndex, 1);
       state.items.splice(newIndex, 0, item!);
-      // state.items = state.items.splice(newIndex, 0, state.items.splice(oldIndex, 1)[0]);
     }
   }
 });

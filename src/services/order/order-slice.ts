@@ -48,6 +48,7 @@ export const orderSlice = createSlice({
       })
       .addCase(makeOrderAsync.rejected, (state, action) => {
         state.status = "failed";
+        state.number = null;
         state.error = action.error.message || "При создании заказа произошла ошибка, перезагрузите страницу...";
       })
       .addCase(getOrderAsync.pending, (state) => {
