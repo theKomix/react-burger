@@ -54,7 +54,7 @@ export const BurgerConstructor: React.FC = () => {
 
     return (
         <div className={`${appStyles.mainRightColumn} pt-25`}>
-            <div className={styles.ingredients}>
+            <div className={styles.ingredients} data-cy="burger-constructor">
                 <Bun bun={bun} isTop={true}/>
 
                 {innerIngredients.length ?
@@ -62,7 +62,7 @@ export const BurgerConstructor: React.FC = () => {
                         {innerIngredients.map((item) =>
                             <IngredientCard key={item.id} item={item} />)}
                     </div>
-                    : <div className={`${styles.dropContent} ${isHover && styles.hover}`} ref={ingredientsTarget}>
+                    : <div className={`${styles.dropContent} ${isHover && styles.hover}`} ref={ingredientsTarget} data-cy="ingredient-dragdrop">
                         <span className="text text_type_main-medium">Перетащите сюда ингредиенты</span>
                     </div>}
                 <Bun bun={bun} isTop={false}/>
