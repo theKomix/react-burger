@@ -2,7 +2,7 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://thekomix.github.io/react-burger/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
@@ -28,7 +28,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "xcopy build\\index.html build\\404.html /y",
     "test": "react-scripts test",
+    "cypress": "cypress open cache clear",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -53,6 +55,11 @@
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",
-    "gh-pages": "^4.0.0"
+    "cypress": "^12.1.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "fetch-mock": "^9.11.0",
+    "gh-pages": "^4.0.0",
+    "node-fetch": "^2.6.7",
+    "ts-jest": "^29.0.3"
   }
 }

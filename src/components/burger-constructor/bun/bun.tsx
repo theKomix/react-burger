@@ -25,7 +25,7 @@ export const Bun: React.FC<{bun: Ingredient | undefined, isTop: boolean}> = ({bu
     });
 
     return (
-        bun ? <div className="pl-8" style={{opacity: isHover ? 0.5: 1}} ref={bunTargetRef} >
+        bun ? <div className="pl-8" style={{opacity: isHover ? 0.5: 1}} ref={bunTargetRef} data-cy="bun-droppable">
                 <ConstructorElement
                     type={isTop ? 'top': 'bottom'}
                     isLocked={true}
@@ -35,7 +35,7 @@ export const Bun: React.FC<{bun: Ingredient | undefined, isTop: boolean}> = ({bu
                     extraClass={`${styles.item}`}
                 />
             </div>
-            : isTop ? <div className={`${styles.dropContent} ${isHover && styles.hover}`} ref={bunTargetRef}>
+            : isTop ? <div className={`${styles.dropContent} ${isHover && styles.hover}`} ref={bunTargetRef} data-cy="bun-droppable">
                 <span className="text text_type_main-medium">Не забудьте выбрать булку</span>
             </div>
                 : <></>

@@ -27,7 +27,7 @@ export const BurgerIngredient: React.FC<{
                 state={{background: location}}
                 className={styles.link}
             >
-                <div className={styles.element} style={{opacity}}>
+                <div className={styles.element} style={{opacity}} data-cy={`ingredient-${item.type}`}>
                     {count > 0 && <div className={styles.counter}><Counter count={count}/></div>}
                     <img ref={ref} className={styles.image} src={item.image_large} alt={item.name}/>
                     <span className={`${styles.price} text text_type_digits-default`}>

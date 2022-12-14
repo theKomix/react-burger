@@ -95,7 +95,7 @@ export const IngredientCard: React.FC<{
     });
 
     return (
-        <div className={styles.element} style={{opacity: isHover ? 0.5 : opacity}} ref={(node) => fromItemsTargetRef(drag(drop(node)))}>
+        <div className={styles.element} style={{opacity: isHover ? 0.5 : opacity}} ref={(node) => fromItemsTargetRef(drag(drop(node)))} data-cy="ingredient-dragdrop">
             <DragIcon type="primary" />
             <ConstructorElement
                 text={item.ingredient.name}

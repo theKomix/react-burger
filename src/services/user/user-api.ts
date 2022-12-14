@@ -8,7 +8,7 @@ import {
 } from "../api-urls";
 import {checkResponse, fetchWithRefresh, getCookie, getRefreshToken} from "../utils";
 
-interface AuthUserResponse{
+export interface AuthUserResponse{
     success: boolean,
     user: {
         email: string,
@@ -18,7 +18,7 @@ interface AuthUserResponse{
     refreshToken: string
 }
 
-interface AuthGetUserResponse{
+export interface AuthGetUserResponse{
     success: boolean,
     user: {
         email: string,

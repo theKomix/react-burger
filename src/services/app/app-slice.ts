@@ -5,7 +5,6 @@ import {GetIngredients} from "./app-api";
 
 export type AppState = {
   ingredients: Ingredient[];
-  ingredientDetails: Ingredient | null;
   error: string;
   status: "idle" | "loading" | "failed";
 }
