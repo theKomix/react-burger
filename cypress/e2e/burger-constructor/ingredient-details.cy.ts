@@ -1,17 +1,23 @@
+import {
+  selectorIngredientBun,
+  ingredientBun2Name,
+  selectorModalId
+} from './selectors';
+
 describe('show ingredient\'s details' , () => {
   before(function() {
-    cy.visit('http://localhost:3000');
+    cy.visit('');
   });
 
   it('should change bun in ingredient list', () => {
-    cy.get('#react-burger-modal').should('be.empty');
-    cy.get('[data-cy="ingredient-bun"] img[alt^="Флюоресцентная булка"]').click();
-    cy.get('#react-burger-modal').should("not.be.empty");
+    cy.get(selectorModalId).should('be.empty');
+    cy.get(`${selectorIngredientBun} img[alt^="${ingredientBun2Name}"]`).click();
+    cy.get(selectorModalId).should("not.be.empty");
 
-    cy.get('#react-burger-modal').contains('Детали ингридиента');
-    cy.get('#react-burger-modal').find('img').should('be.visible');
+    cy.get(selectorModalId).contains('Детали ингридиента');
+    cy.get(selectorModalId).find('img').should('be.visible');
 
     cy.get('span[class^="modal-header_close"]').click();
-    cy.get('#react-burger-modal').should('be.empty');
+    cy.get(selectorModalId).should('be.empty');
   });
 })

@@ -1,23 +1,25 @@
+import {selectorIngredientBun, selectorBunDroppable, ingredientBun1Name, ingredientBun2Name} from './selectors';
+
 describe('add bun to order', () => {
   before(function() {
-    cy.visit('http://localhost:3000');
-    cy.get('[data-cy="ingredient-bun"] img[alt^="Краторная булка"]').trigger("dragstart");
-    cy.get('[data-cy="bun-droppable"]').trigger("drop").trigger("dragend");
+    cy.visit('');
+    cy.get(`${selectorIngredientBun} img[alt^="${ingredientBun1Name}"]`).trigger('dragstart');
+    cy.get(selectorBunDroppable).trigger("drop").trigger('dragend');
   });
 
   it('should change bun in ingredient list', () => {
-    cy.get('[data-cy="bun-droppable"] .constructor-element_pos_top');
+    cy.get(`${selectorBunDroppable} .constructor-element_pos_top`);
 
-    cy.get('[data-cy="ingredient-bun"] img[alt^="Флюоресцентная булка"]').trigger("dragstart");
-    cy.get('[data-cy="bun-droppable"]').first().trigger("drop").trigger("dragend");
-    cy.get('[data-cy="burger-constructor"]').contains("Флюоресцентная булка");
+    cy.get(`${selectorIngredientBun} img[alt^="${ingredientBun2Name}"]`).trigger('dragstart');
+    cy.get(selectorBunDroppable).first().trigger('drop').trigger('dragend');
+    cy.get('[data-cy="burger-constructor"]').contains(ingredientBun2Name);
 
-    cy.get('[data-cy="ingredient-bun"]').contains('Краторная булка').then($a => {
+    cy.get(selectorIngredientBun).contains(ingredientBun1Name).then($a => {
       let count = $a.parent().find('.counter__num').first();
       expect(count.text()).to.equal('');
     });
 
-    cy.get('[data-cy="ingredient-bun"]').contains('Флюоресцентная булка').then($a => {
+    cy.get(selectorIngredientBun).contains(ingredientBun2Name).then($a => {
       let count = $a.parent().find('.counter__num').first();
       expect(count.text()).to.equal('2');
     });
