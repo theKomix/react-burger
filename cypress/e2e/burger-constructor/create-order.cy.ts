@@ -6,6 +6,7 @@ import {
   selectorModalId,
   ingredientBun1Name, ingredientMain1Name, ingredientSauce1Name
 } from './selectors';
+import {PostOrderUrl} from "../../../src/services/api-urls";
 
 describe('add bun to order', () => {
   beforeEach(function() {
@@ -93,10 +94,12 @@ describe('add bun to order', () => {
     cy.get('input[type="email"]').type('thekomix@yandex.ru');
     cy.get('input[type="password"]').type('Aa123456');
     cy.get('button').contains('Войти').click();
+
+    cy.intercept('POST', PostOrderUrl).as('postOrder');
     cy.get('button').contains('Оформить заказ').click();
     cy.get(selectorModalId).should("not.be.empty");
 
-    cy.wait(20000);
+    cy.wait('@postOrder', {timeout: 20000});
 
     cy.get(selectorModalId).find('img[alt="done"]').should('be.visible');
   });
